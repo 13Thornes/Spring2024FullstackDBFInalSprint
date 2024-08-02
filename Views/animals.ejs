@@ -1,0 +1,18 @@
+html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <div class="allAnimalsPage">
+            <form action="/animals" method="POST">
+                <h2>Animals: </h2>
+            <% if (theAnimals.length > 0) { %>
+                <% theAnimals.forEach(animal => { %>
+                    <b><%= animal.animal_id %> &nbsp; <%= animal.nickname%></b>
+         </div>
+        <% }) %>
+            <% } %>
+        </form>
+        </div>
+    </body>
+    <%- include('./partials/foot.ejs') %>
+</html>
