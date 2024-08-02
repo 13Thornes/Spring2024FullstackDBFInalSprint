@@ -6,7 +6,7 @@ const dal = require("./animals_db");
 var getanimals= function() {
     if(DEBUG) console.log("animals.pg.dal.getanimals()");
     return new Promise(function(resolve, reject) {
-      const sql = "SELECT animal_id, nickname, common_name, scientific_name, age, date_arrived, last_checkup FROM public.animals ORDER BY animal_id;"
+      const sql = "SELECT \"animal_id\", \"nickname\", \"common_name\", \"scientific_name\", \"age\", \"date_arrived\", \"last_checkup\" FROM \"animals\" ORDER BY \"animal_id\";"
       dal.query(sql, [], (err, result) => {
         if (err) {
           if(DEBUG) console.log(err);
