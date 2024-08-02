@@ -1,0 +1,14 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <div>
+            <h2>Animal:</h2>
+            <% if (anAnimal.length > 0) 
+                var animal = anAnimal[0];{ %>
+                <h3> <%= animal.animal_id %> &nbsp; <%= animal.nickname%> </h3> 
+            <% } %>
+        </div>
+    </body>
+    <%- include('./partials/foot.ejs') %>
+</html>
