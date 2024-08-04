@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
         const anAnimal = await animalsDal.getanimalbyanimalid(req.params.id);
         if(DEBUG) console.log(`animals.router.get/:id ${anAnimal}`);
         if (anAnimal)
-            res.render('animals', {anAnimal});
+            res.render('animal', {anAnimal});
         else
             res.render('norecord');
     } catch {
