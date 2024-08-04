@@ -3,7 +3,8 @@ html lang="en">
     <body>
         <%- include('./partials/nav.ejs') %>
         <div class="allAnimalsPage">
-            <form action="/animals" method="POST">
+            <form action="/search" method="POST">
+                <br>
                 <h2>Animals: </h2>
                 <table>
                     <tr>
@@ -13,8 +14,8 @@ html lang="en">
                         <th>Scientific Name</th>
                         <th>Age</th>
                     </tr>
-                    <% if (theAnimals.length > 0) { %>
-                        <% theAnimals.forEach(animal => { %>
+                <% if (theAnimals.length > 0) { %>
+                    <% theAnimals.forEach(animal => { %>
                         <tr>
                             <td><%= animal.animal_id %></td>
                             <td><%= animal.nickname%></td>
@@ -25,12 +26,18 @@ html lang="en">
                             <br>
                         </tr>
                 </table>
+                <% } else { %>
+                    <p>No search results.</p>
+                <% } %>
+            </br><label>Auto Search:</label></br>
+            <label>Keyword:
+                <input type="text" id="keyword" name="keyword" value="<%= locals.keyword %>" required>
+            </label>
+            </br>
+            <button>POST</button>        
             
          </div>
-        
-            <% } %>
         </form>
-        </div>
     </body>
     <%- include('./partials/foot.ejs') %>
 </html>
