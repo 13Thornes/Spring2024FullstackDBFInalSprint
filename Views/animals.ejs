@@ -2,8 +2,8 @@ html lang="en">
     <%- include('./partials/head.ejs') %>
     <body>
         <%- include('./partials/nav.ejs') %>
-        <div class="allAnimalsPage">
-            <form action="/animals" method="POST">
+        <div class="SearchPage">
+            <form action="/search" method="POST">
                 <h2>Animals: </h2>
                 <table>
                     <tr>
@@ -23,10 +23,19 @@ html lang="en">
                             <td>&nbsp;&nbsp;<%= animal.age%></td>
                             <% }) %>
                             <br>
+                        
                         </tr>
                 </table>
             
          </div>
+        </br><label>Auto Search:</label></br>
+        <label>Keyword:
+            <input type="text" id="keyword" name="keyword" value="<%= locals.keyword %>" required>
+        </label>
+        </br>
+        <button>POST</button>
+        <br>
+        <br>
         
             <% } %>
         </form>
