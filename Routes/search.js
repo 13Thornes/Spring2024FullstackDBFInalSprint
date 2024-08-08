@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    let theAnimals = await pDal.getFullText(req.body.keyword); 
+    let theAnimals = await pDal.getanimals(req.body.keyword); 
     myEventEmitter.emit('event', 'app.post /search', 'INFO', 'search page (search.ejs) was displayed.');
     res.render('search', {status: req.session.status, theAnimals});
 });

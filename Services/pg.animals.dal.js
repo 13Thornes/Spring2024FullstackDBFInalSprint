@@ -3,10 +3,14 @@
 const dal = require("./p.db");
 
 // GET all animals
-var getanimals= function() {
+var getanimals= function(text) {
     if(DEBUG) console.log("animals.pg.dal.getanimals()");
     return new Promise(function(resolve, reject) {
-      const sql = "SELECT animal_id, nickname, common_name, scientific_name, age, date_arrived, last_checkup FROM public.animals WHERE animal_id iLIKE '%'||$1||'%' \ OR nickname iLIKE '%'||$1||'%' \ OR common_name iLIKE '%'||$1||'%'  \ OR scientific_name iLIKE '%'||$1||'%' \ OR age iLIKE '%'||$1||'%'`"
+
+      const sql = `SELECT animal_id, nickname, common_name, scientific_name, age, date_arrived, last_checkup FROM public.animals \
+    WHERE nickname iLIKE '%'||$1||'%' \
+          OR common_name iLIKE '%'||$1||'%' \
+          OR scientific_name iLIKE '%'||$1||'%'`;
       
       if(DEBUG) console.log(sql);
       dal.query(sql, [text], (err, result) => {

@@ -25,15 +25,15 @@ app.listen(PORT, (err) => {
     console.log(`Simple app running on port ${PORT}.`)
 });
 
-app.get('/', async (req, res) => {
-    myEventEmitter.emit('event', 'app.get', 'INFO', 'landing page (index.ejs) was displayed.');
-    res.render('index', {status: req.session.status});
-});
+// app.get('/', async (req, res) => {
+//     myEventEmitter.emit('event', 'app.get', 'INFO', 'landing page (index.ejs) was displayed.');
+//     res.render('index', {status: req.session.status});
+// });
 
-app.get('/about', async (req, res) => {
-    myEventEmitter.emit('event', 'app.get /about', 'INFO', 'about page (about.ejs) was displayed.');
-    res.render('about', {status: req.session.status});
-});
+// app.get('/about', async (req, res) => {
+//     myEventEmitter.emit('event', 'app.get /about', 'INFO', 'about page (about.ejs) was displayed.');
+//     res.render('about', {status: req.session.status});
+// });
 
 const searchRouter = require('./routes/search');
 app.use('/search', searchRouter);

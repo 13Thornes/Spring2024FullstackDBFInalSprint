@@ -4,6 +4,14 @@ html lang="en">
         <%- include('./partials/nav.ejs') %>
         <div class="SearchPage">
             <form action="/search" method="POST">
+
+            </br><label>Auto Search:</label></br>
+            <label>Keyword:
+                <input type="text" id="keyword" name="keyword" value="<%= locals.keyword %>" required>
+            </label>
+        </br>
+        <button>POST</button>
+        <br>
                 <h2>Animals: </h2>
                 <table>
                     <tr>
@@ -28,13 +36,8 @@ html lang="en">
                 </table>
             
          </div>
-        </br><label>Auto Search:</label></br>
-        <label>Keyword:
-            <input type="text" id="keyword" name="keyword" value="<%= locals.keyword %>" required>
-        </label>
-        </br>
-        <button>POST</button>
-        <br>
+        
+        
         <br>
         
             <% } %>
