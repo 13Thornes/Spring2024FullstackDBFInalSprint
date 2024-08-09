@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
         }
         if(DEBUG) console.log(`user data: ${user.username}`);
         if( await bcrypt.compare(req.body.password, user.password)) {
-            const token = jwt.sign({ username: user.username }, `${process.env.JWT_SECRET_KEY}`, { expiresIn: '10m' });
+            const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET_KEY, { expiresIn: '10m' });
             if(DEBUG) {
                 console.log('\n');
                 console.log('Copy and paste the following curl command to test the API.');
@@ -33,9 +33,9 @@ router.post('/', async (req, res) => {
             }
             //myEventEmitter.emit('event', 'auth.post', 'SUCCESS', `User ${user.username} logged in successfully.`);
             if(DEBUG) console.log('auth.post.getLoginByUsername().try _id: ' + user.username);
-            //req.session.user = user;
-            //req.session.token = token;
-           
+            req.session.user = user;
+            req.session.token = token;
+            req.session.status = 'Happy for your return ' + user.username;
             res.redirect('/');
             return;
         } else {

@@ -1,4 +1,7 @@
 
+require('dotenv').config();
+
+
 // define constants
 const express = require('express');
 const methodOverride = require('method-override');
@@ -15,6 +18,13 @@ app.use(express.urlencoded({ extended: true, }));
 app.use(methodOverride('_method'));
 app.use(express.json());
 
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+
+
 // get games page
 const animalsRouter = require('./Routes/animalspg')
 app.use('/animals', animalsRouter);
@@ -24,13 +34,16 @@ app.use("/auth", authRouter);
 
 app.get('/', async (req, res) => {
     //myEventEmitter.emit('event', 'app.get', 'INFO', 'landing page (index.ejs) was displayed.');
-    res.render('index');
+    
+    res.render('index', {status: req.session.status});
 });
 
 // Error page
 app.use((req, res) => {
     res.status(404).render('404');
 });
+
+
 
 // run the server
 app.listen(PORT, () => {
