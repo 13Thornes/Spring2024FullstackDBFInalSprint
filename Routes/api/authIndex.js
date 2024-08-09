@@ -1,5 +1,5 @@
 var router = require('express').Router();
-const {setToken, authenticateJWT } = require('../../services/auth');
+const {setToken, authenticateJWT } = require('../../Services/auth');
 
 if(DEBUG) {
     console.log('ROUTE: /api/auth');

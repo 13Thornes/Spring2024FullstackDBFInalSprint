@@ -14,7 +14,7 @@ async function addLogin(name, email, password, uuidv4) {
   };
 
   async function getLoginByUsername(username) {
-    let SQL = `SELECT username AS username, password, email FROM public."User" WHERE username = $1`;
+    let SQL = `SELECT id AS id, username, password, email FROM public."User" WHERE username = $1`;
     try {
       let results = await dal.query(SQL, [username]);
       if(DEBUG) console.log(`results after query: ${JSON.stringify(results.rows[0])}`);

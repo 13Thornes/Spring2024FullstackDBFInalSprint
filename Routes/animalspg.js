@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const animalsDal = require('../Services/pg.animals.dal')
-const {setToken, authenticateJWT} = require('../services/auth');
+const {setToken, authenticateJWT} = require('../Services/auth');
 
 
 router.use(setToken);

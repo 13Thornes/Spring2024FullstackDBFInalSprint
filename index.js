@@ -27,9 +27,9 @@ app.use(session({
 
 // get games page
 const animalsRouter = require('./Routes/animalspg')
-app.use('/animals', animalsRouter);
+app.use('/search', animalsRouter);
 
-const authRouter = require('./routes/auth');
+const authRouter = require('./Routes/auth');
 app.use("/auth", authRouter);
 
 app.get('/', async (req, res) => {
@@ -38,10 +38,15 @@ app.get('/', async (req, res) => {
     res.render('index', {status: req.session.status});
 });
 
+
+
 // Error page
 app.use((req, res) => {
     res.status(404).render('404');
 });
+
+const apiRouter = require('./Routes/api/auth')
+app.use('/api', apiRouter);
 
 
 
