@@ -3,7 +3,11 @@
 const express = require('express');
 const router = express.Router();
 const animalsDal = require('../Services/pg.animals.dal')
+const {setToken, authenticateJWT} = require('../services/auth');
 
+
+router.use(setToken);
+router.use(authenticateJWT);
 // router call to render the animals page
 router.get('/', async (req, res) => {
     try {
