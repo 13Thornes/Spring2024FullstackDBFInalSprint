@@ -1,34 +1,39 @@
-html lang="en">
+<html lang="en">
     <%- include('./partials/head.ejs') %>
     <body>
+        <h1>Search Page</h1>
         <%- include('./partials/nav.ejs') %>
         <div class="SearchPage">
             <form action="/search" method="POST">
 
-            </br><label>Auto Search:</label></br>
+            <label><h2>Auto Search:</h2></label>
             <label>Keyword:
                 <input type="text" id="keyword" name="keyword" value="<%= locals.keyword %>" required>
             </label>
-
+            <br>
+            <%- include('./partials/status.ejs') %>
             <input type="radio" id="pg" name="database" value="pg">
             <label for="pg">PG</label>
             <input type="radio" id="mongo" name="database" value="mongo">
             <label for="mongo">Mongo</label>
             <input type="radio" id="both" name="database" value="both">
             <label for="mongo">Both</label>
+            
         </br>
-        <button>POST</button>
         <br>
-                <h2>Animals: </h2>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Common Name</th>
-                        <th>Scientific Name</th>
-                        <th>Age</th>
-                    </tr>
+        <button>Search</button>
+        <br>
+        <br>
                     <% if (theAnimals.length > 0) { %>
+                        <h3>Animals: </h3>
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Common Name</th>
+                                <th>Scientific Name</th>
+                                <th>Age</th>
+                            </tr>
                         <% theAnimals.forEach(animal => { %>
                         <tr>
                             <td><%= animal.animal_id %></td>
@@ -51,5 +56,8 @@ html lang="en">
         </form>
         </div>
     </body>
+    <%- include('./partials/auth.ejs') %>
+    <br>
+    <br>
     <%- include('./partials/foot.ejs') %>
 </html>
