@@ -25,7 +25,7 @@ app.use(session({
 }));
 
 
-// get games page
+// get animals search page
 const animalsRouter = require('./Routes/animalspg')
 app.use('/search', animalsRouter);
 
@@ -38,14 +38,18 @@ app.get('/', async (req, res) => {
     res.render('index', {status: req.session.status});
 });
 
-
+// get about page
+app.get('/about', (request, response) => {
+    response.render('about.ejs');
+});
 
 // Error page
 app.use((req, res) => {
     res.status(404).render('404');
 });
 
-const apiRouter = require('./Routes/api/auth')
+const apiRouter = require('./Routes/api/auth');
+const { request } = require('http');
 app.use('/api', apiRouter);
 
 
