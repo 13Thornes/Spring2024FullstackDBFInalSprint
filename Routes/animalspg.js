@@ -26,6 +26,11 @@ router.post('/', async (req, res) => {
     else if(req.body.database==='mongo'){
         console.log('Enter mongo')
     }
+
+    else if(req.body.database==='both'){
+        console.log('Enter mongo');
+        theAnimals = await pDal.getanimals(req.body.keyword);
+    }
     else{
         req.session.status ='Please select a database'
     
