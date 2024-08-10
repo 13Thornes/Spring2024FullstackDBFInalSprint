@@ -1,0 +1,55 @@
+html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <div class="SearchPage">
+            <form action="/search" method="POST">
+
+            </br><label>Auto Search:</label></br>
+            <label>Keyword:
+                <input type="text" id="keyword" name="keyword" value="<%= locals.keyword %>" required>
+            </label>
+
+            <input type="radio" id="pg" name="database" value="pg">
+            <label for="pg">PG</label>
+            <input type="radio" id="mongo" name="database" value="mongo">
+            <label for="mongo">Mongo</label>
+            <input type="radio" id="both" name="database" value="both">
+            <label for="mongo">Both</label>
+        </br>
+        <button>POST</button>
+        <br>
+                <h2>Animals: </h2>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Common Name</th>
+                        <th>Scientific Name</th>
+                        <th>Age</th>
+                    </tr>
+                    <% if (theAnimals.length > 0) { %>
+                        <% theAnimals.forEach(animal => { %>
+                        <tr>
+                            <td><%= animal.animal_id %></td>
+                            <td><%= animal.nickname%></td>
+                            <td><%= animal.common_name%></td>
+                            <td><%= animal.scientific_name%></td>
+                            <td>&nbsp;&nbsp;<%= animal.age%></td>
+                            <% }) %>
+                            <br>
+                        
+                        </tr>
+                </table>
+            
+         </div>
+        
+        
+        <br>
+        
+            <% } %>
+        </form>
+        </div>
+    </body>
+    <%- include('./partials/foot.ejs') %>
+</html>

@@ -9,7 +9,7 @@ const { addLogin, getLoginByUsername } = require('../Services/p.auth.dal')
 
 router.get('/', async (req, res) => {
     if(DEBUG) console.log('login page: ');
-    res.render('login');
+    res.render('login', {status: req.session.status});
     return;
 });
 
@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
         let user = await getLoginByUsername(req.body.username);
         if(user === undefined || user === null) {
             if(DEBUG) console.log('Incorrect user name was entered.');
+            req.session.status = 'Incorrect user name was entered.'
             res.redirect('/auth');
             return;
         }
@@ -40,7 +41,9 @@ router.post('/', async (req, res) => {
             return;
         } else {
             //myEventEmitter.emit('event', 'auth.post', 'INVALID', `Incorrect password was entered.`);
+            console.log('Incorrect password was entered.');
             req.session.status = 'Incorrect password was entered.'
+            
             res.redirect('/auth')
             return;
         }
@@ -54,7 +57,7 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/new', async (req, res) => {
-    res.render('register');
+    res.render('register', {status: req.session.status});
     return;
 });
 
@@ -81,12 +84,13 @@ router.post('/new', async (req, res) => {
                     constraint = setConstraint(result.constraint);
                 } 
                 if(DEBUG) console.log(`${constraint} already exists, please try another.`);
+                req.session.status = `${constraint} already exists, please try another.`
                 
                 res.redirect('/auth/new')
                 return;
             } else {
                 //myEventEmitter.emit('event', 'auth.post /new', 'INFO', `New account created.`);
-                
+                req.session.status = 'New account created, please login.'
                 res.redirect('/');
                 return;
             }
