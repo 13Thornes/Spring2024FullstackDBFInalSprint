@@ -108,4 +108,21 @@ router.post('/new', async (req, res) => {
     }
 });
 
+// clear the session
+router.get('/exit', async (req, res) => {
+    if(DEBUG) console.log('get /exit');
+    // clear out the express-session
+    req.session.destroy((err) => {
+        if (err) {
+            // Handle error case
+            console.error("Session destruction error:", err);
+            return res.status(500).send("Could not log out.");
+        } else {
+            // Redirect to home page or login page after successful logout
+            res.redirect('/');
+            return;
+        }
+    });
+});
+
 module.exports = router;
