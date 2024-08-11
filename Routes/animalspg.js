@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 const pDal = require('../Services/pg.animals.dal')
 const {setToken, authenticateJWT} = require('../Services/auth');
+const keyDal = require('../Services/pg.keywords.dal');
+const session = require('express-session');
 
 
 router.use(setToken);
@@ -37,6 +39,10 @@ router.post('/', async (req, res) => {
 
     } 
     //myEventEmitter.emit('event', 'app.post /search', 'INFO', 'search page (search.ejs) was displayed.');
+
+
+    
+    keyDal.addKeyword(req.session.user.id, req.body.keyword, req.body.database, theAnimals.length);
     res.render('search', {status: req.session.status, theAnimals});
 });
 
