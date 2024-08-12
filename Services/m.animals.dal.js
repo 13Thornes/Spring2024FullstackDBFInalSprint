@@ -4,7 +4,7 @@ const dal = require("./m.db");
 async function geAnimals(keyword) {
   if(DEBUG) console.log("mongo.dal.getFullText()");
   try {
-    console.log("Enter try")
+    
     await dal.connect();
     const database = dal.db("ZooAnimals");
     const collection = database.collection("animals");
