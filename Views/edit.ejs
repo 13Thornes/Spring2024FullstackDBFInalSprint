@@ -5,7 +5,7 @@
         <%- include('./partials/nav.ejs') %>
         <div class="userPage">
             <h3>Edit User Info</h3>
-            <form action="/user/edit" method="POST">
+            <form action="/user/edit?_method=PATCH" method="POST">
 
                 <label>Username:
                     <input type="text" id="username" name="username" value="<%= locals.username %>" required>
