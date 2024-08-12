@@ -11,6 +11,18 @@ async function addKeyword(login_id, keywords, source, hits) {
   } 
 };
 
+async function deleteKeyword(user_id) {
+  let SQL = "DELETE FROM public.\"keywords\" WHERE \"user_id\" = $1"
+try {
+  let results = await dal.query(SQL, [user_id]);
+  return results;
+} catch (error) {
+  console.log(error);
+} 
+};
+
+
 module.exports = {
-    addKeyword
+    addKeyword,
+    deleteKeyword
   }

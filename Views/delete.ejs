@@ -3,8 +3,11 @@
     <body>
     <h1>User Deletion Page</h1>
     <%- include('./partials/nav.ejs') %>
-    <p>Your user information has now been deleted</p>
-    <p>If you would like to use our service again, please re-register by clicking on our registration link</p>
+    
+    <form action="/user/delete?_method=DELETE" method="POST">
+        <p>Would you like to delete your account?</p>
+        <button>Delete</button>
+        </form>
     <br>
     <a href="/user/edit">Edit</a>
     <a href="/user/delete">Delete</a>

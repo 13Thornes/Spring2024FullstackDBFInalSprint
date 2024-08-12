@@ -6,7 +6,8 @@ const router = express.Router();
 const {setToken, authenticateJWT} = require('../Services/auth');
 
 
-const { updateUser, deleteUser } = require('../Services/p.auth.dal')
+const { updateUser, deleteUser } = require('../Services/p.auth.dal');
+const { deleteKeyword } = require('../Services/pg.keywords.dal');
 
 
 router.use(setToken);
@@ -77,17 +78,30 @@ try{
     }
 });
 
-router.delete('/delete', async (req, res) => {
-    var result = await updateUser(req.session.user.username);
-    if (result.code === "404") {
-        console.log("Deletion error");
-    } else {
-        req.session.status = 'Account deleted.'
-        res.redirect('/user/delete');
-        return;
-    }
+router.get('/delete', async (req, res) => {
+    res.render('delete', {theId: req.session.user.id, status: req.session.status});
 });
 
-
+router.delete('/delete', async (req, res) => {
+    await deleteKeyword(req.session.user.id)
+    var result = await deleteUser(req.session.user.username);
+    if (result.code === "404") {
+        console.log("Deletion error");
+        res.redirect('/')
+    } else {
+        req.session.status = 'Account deleted.'
+        req.session.destroy((err) => {
+            if (err) {
+                // Handle error case
+                console.error("Session destruction error:", err);
+                return res.status(500).send("Could not log out.");
+            } else {
+                // Redirect to home page or login page after successful logout
+                res.redirect('/');
+                return;
+            }
+        });
+    }
+});
 
 module.exports = router
