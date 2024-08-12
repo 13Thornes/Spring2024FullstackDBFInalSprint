@@ -28,14 +28,14 @@ router.post('/', async (req, res) => {
     }
     else if(req.body.database==='mongo'){
         console.log('Enter mongo')
-        theAnimals = await mDal.getFullText(req.body.keyword)
+        theAnimals = await mDal.getanimals(req.body.keyword)
     }
 
     else if(req.body.database==='both'){
         console.log('Enter mongo');
         theAnimals = await pDal.getanimals(req.body.keyword);
         console.log(theAnimals.length);
-        let mongoAnimals = await mDal.getFullText(req.body.keyword);
+        let mongoAnimals = await mDal.getanimals(req.body.keyword);
 
         mongoAnimals.forEach(animal=> {
         theAnimals.push(animal);

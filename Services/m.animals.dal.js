@@ -19,5 +19,5 @@ async function geAnimals(keyword) {
 };
 
 module.exports = {
-    getFullText,
+  geAnimals
   }
