@@ -9,7 +9,7 @@ async function addLogin(name, email, password, uuidv4) {
     } catch (error) {
       if(error.code === '23505') // duplicate username
         return error;
-      console.log(error);
+      
     } 
   };
 
@@ -24,7 +24,31 @@ async function addLogin(name, email, password, uuidv4) {
     }  
   };
 
+  async function updateUser(id,username, password, email) {
+    let SQL = "UPDATE public.\"User\" SET \"username\"=$2, \"password\"=$3 , \"email\"=$4 WHERE \"id\"=$1;";
+    try {
+      let results = await dal.query(SQL, [id, username, password, email]);
+      return results
+    } catch (error) {
+      return error
+    }  
+  };
+
+  async function deleteUser(username) {
+    let SQL = "DELETE FROM public.\"User\" WHERE \"username\" = $1";
+    try {
+      let results = await dal.query(SQL, [username]);
+      return results
+    } catch (error) {
+      return error
+    }  
+  }
+
+
+
   module.exports = {
     addLogin,
-    getLoginByUsername
+    getLoginByUsername,
+    updateUser,
+    deleteUser
   }

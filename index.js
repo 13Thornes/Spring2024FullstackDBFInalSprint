@@ -32,6 +32,9 @@ app.use('/search', animalsRouter);
 const authRouter = require('./Routes/auth');
 app.use("/auth", authRouter);
 
+const userRouter = require('./Routes/user');
+app.use("/user", userRouter);
+
 app.get('/', async (req, res) => {
     //myEventEmitter.emit('event', 'app.get', 'INFO', 'landing page (index.ejs) was displayed.');
     
@@ -43,14 +46,18 @@ app.get('/about', (request, response) => {
     response.render('about.ejs');
 });
 
+app.get('/user', (request, response) => {
+    response.render('user.ejs');
+});
+
+
+
 // Error page
 app.use((req, res) => {
     res.status(404).render('404');
 });
 
-const apiRouter = require('./Routes/api/auth');
-const { request } = require('http');
-app.use('/api', apiRouter);
+
 
 
 

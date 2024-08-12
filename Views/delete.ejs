@@ -1,0 +1,21 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+    <h1>User Deletion Page</h1>
+    <%- include('./partials/nav.ejs') %>
+    
+    <form action="/user/delete?_method=DELETE" method="POST">
+        <p>Would you like to delete your account?</p>
+        <button>Delete</button>
+        </form>
+    <br>
+    <a href="/user/edit">Edit</a>
+    <a href="/user/delete">Delete</a>
+    <br>
+    <br>
+    <br>
+    <%- include('./partials/auth.ejs') %>
+    <br>
+    <br>
+    <%- include('./partials/foot.ejs') %>
+</html>

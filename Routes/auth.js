@@ -74,7 +74,6 @@ router.post('/new', async (req, res) => {
                 function setConstraint(indexName) {
                     const constraintsMap = {
                         "unique_username": "Username",
-                        "unique_email": "Email address"
                     };
                     return constraintsMap[indexName] || indexName; // Default to indexName if not found
                 }
