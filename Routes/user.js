@@ -1,13 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const uuid = require('uuid');
-const jwt = require('jsonwebtoken');
 const router = express.Router();
 const {setToken, authenticateJWT} = require('../Services/auth');
 
 
+
 const { updateUser, deleteUser } = require('../Services/p.auth.dal');
 const { deleteKeyword } = require('../Services/pg.keywords.dal');
+
 
 
 router.use(setToken);
@@ -25,7 +25,7 @@ router.get('/edit', async (req, res) => {
     res.render('edit', {theId: req.session.user.id, status: req.session.status});
 });
 
-router.post('/edit', async (req, res) => {
+router.patch('/edit', async (req, res) => {
     console.log("enter");
 try{
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -66,11 +66,6 @@ try{
     }
   catch (error) {
         console.log(error);
-
-        
-    
-
-      
         // log this error to an error log file.
         res.render('503');
         return;

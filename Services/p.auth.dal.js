@@ -30,6 +30,7 @@ async function addLogin(name, email, password, uuidv4) {
       let results = await dal.query(SQL, [id, username, password, email]);
       return results
     } catch (error) {
+      console.log(error)
       return error
     }  
   };
