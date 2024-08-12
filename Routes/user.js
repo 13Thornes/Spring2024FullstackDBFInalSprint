@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const {setToken, authenticateJWT} = require('../Services/auth');
 
+const myEventEmitter = require('../Services/logEvents.js');
+
 
 
 const { updateUser, deleteUser } = require('../Services/p.auth.dal');
@@ -15,13 +17,13 @@ router.use(authenticateJWT);
 
 router.get('/', async (req, res) => {
     
-    //myEventEmitter.emit('event', 'app.get /search', 'INFO', 'search page (search.ejs) was displayed.');
+    myEventEmitter.emit('event', 'user.get / ', 'INFO', 'search page (search.ejs) was user page was displayed.');
     res.render('user');
 });
 
 router.get('/edit', async (req, res) => {
     
-    //myEventEmitter.emit('event', 'app.get /search', 'INFO', 'search page (search.ejs) was displayed.');
+    myEventEmitter.emit('event', 'user,get / edit', 'INFO', 'edit page was displayed.');
     res.render('edit', {theId: req.session.user.id, status: req.session.status});
 });
 
@@ -42,7 +44,7 @@ try{
                 }
                 
                
-                    //myEventEmitter.emit('event', 'auth.post /new', 'INFO', `PostgreSQL unique violation: 23505`);
+                    myEventEmitter.emit('event', 'user.patch/edit', 'INFO', `PostgreSQL unique violation: 23505`);
                     constraint = setConstraint(req.body.username);
                 
                 if(DEBUG) console.log(`${constraint} already exists, please try another.`);
@@ -52,7 +54,7 @@ try{
                 return;
             }
             
-        //myEventEmitter.emit('event', 'auth.post /new', 'INFO', `New account created.`);
+        myEventEmitter.emit('event', 'user.patch/edit ', 'INFO', `User edited data.`);
         req.session.status = 'Account updated.'
         res.redirect('/user/edit');
         return;

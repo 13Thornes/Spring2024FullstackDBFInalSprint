@@ -10,14 +10,14 @@ const authenticateJWT = (req, res, next) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
             if (err) {
                 console.log(err)
-                return res.sendStatus(403);
+                res.redirect('/auth');
             }
             req.user = user;
             next();
         });
     } else {
         if(DEBUG) console.log('Status: 401');
-        // return res.sendStatus(401);
+        
         req.session.status = 'Please log in to view this page.';
         res.redirect('/auth');
     }
