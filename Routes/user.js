@@ -3,15 +3,12 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const {setToken, authenticateJWT} = require('../Services/auth');
 
-const { updateUser, deleteUser } = require('../Services/p.auth.dal');
-const { deleteKeyword } = require('../Services/pg.keywords.dal');
 const myEventEmitter = require('../Services/logEvents.js');
 
 
 
-
-
-
+const { updateUser, deleteUser } = require('../Services/p.auth.dal');
+const { deleteKeyword } = require('../Services/pg.keywords.dal');
 
 
 
