@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const myEventEmitter = require('../Services/logEvents.js');
 
 
 const { addLogin, getLoginByUsername } = require('../Services/p.auth.dal')
@@ -32,7 +33,7 @@ router.post('/', async (req, res) => {
                 console.log(`curl -H "Authorization: Bearer ${token}" -X GET http://localhost:3000/api/full/p/[keyword]`);
                 console.log('\n');
             }
-            //myEventEmitter.emit('event', 'auth.post', 'SUCCESS', `User ${user.username} logged in successfully.`);
+            myEventEmitter.emit('event', 'auth.post', 'SUCCESS', `User ${user.username} logged in successfully.`);
             if(DEBUG) console.log('auth.post.getLoginByUsername().try _id: ' + user.username);
             req.session.user = user;
             req.session.token = token;
@@ -40,7 +41,7 @@ router.post('/', async (req, res) => {
             res.redirect('/');
             return;
         } else {
-            //myEventEmitter.emit('event', 'auth.post', 'INVALID', `Incorrect password was entered.`);
+            myEventEmitter.emit('event', 'auth.post', 'INVALID', `Incorrect password was entered.`);
             console.log('Incorrect password was entered.');
             req.session.status = 'Incorrect password was entered.'
             
@@ -50,7 +51,7 @@ router.post('/', async (req, res) => {
     } catch (error) {
         if(DEBUG) console.log('auth.getLoginByUsername().catch.');
         console.log(error);
-        //myEventEmitter.emit('event', 'auth.post', 'ERROR', `Server error: 503.`);
+        myEventEmitter.emit('event', 'auth.post', 'ERROR', `Server error: 503.`);
         res.render('503');
         return;
     }
@@ -79,7 +80,7 @@ router.post('/new', async (req, res) => {
                 }
                 
                 if (result.code === "23505") { // PostgreSQL unique violation
-                    //myEventEmitter.emit('event', 'auth.post /new', 'INFO', `PostgreSQL unique violation: 23505`);
+                    myEventEmitter.emit('event', 'auth.post /new', 'INFO', `PostgreSQL unique violation: 23505`);
                     constraint = setConstraint(result.constraint);
                 } 
                 if(DEBUG) console.log(`${constraint} already exists, please try another.`);
@@ -88,7 +89,7 @@ router.post('/new', async (req, res) => {
                 res.redirect('/auth/new')
                 return;
             } else {
-                //myEventEmitter.emit('event', 'auth.post /new', 'INFO', `New account created.`);
+                myEventEmitter.emit('event', 'auth.post /new', 'INFO', `New account created.`);
                 req.session.status = 'New account created, please login.'
                 res.redirect('/');
                 return;
@@ -101,7 +102,7 @@ router.post('/new', async (req, res) => {
         }       
     } catch (error) {
         console.log(error);
-        // log this error to an error log file.
+        myEventEmitter.emit('event', 'new.post', 'ERROR', `Server error: 503.`);
         res.render('503');
         return;
     }
@@ -111,14 +112,17 @@ router.post('/new', async (req, res) => {
 router.get('/exit', async (req, res) => {
     if(DEBUG) console.log('get /exit');
     // clear out the express-session
+    myEventEmitter.emit('event', 'exit.get /new', 'INFO', `User ${req.session.user.username} logged out.`);
     req.session.destroy((err) => {
         if (err) {
             // Handle error case
             console.error("Session destruction error:", err);
+            myEventEmitter.emit('event', 'exit.get', 'ERROR', `Server error: 503.`);
             return res.status(500).send("Could not log out.");
         } else {
             // Redirect to home page or login page after successful logout
             res.redirect('/');
+            
             return;
         }
     });

@@ -6,6 +6,7 @@ const pDal = require('../Services/pg.animals.dal')
 const {setToken, authenticateJWT} = require('../Services/auth');
 const keyDal = require('../Services/pg.keywords.dal');
 const session = require('express-session');
+const myEventEmitter = require('../Services/logEvents.js');
 
 
 router.use(setToken);
@@ -13,7 +14,7 @@ router.use(authenticateJWT);
 // router call to render the animals page
 router.get('/', async (req, res) => {
     const theAnimals = [];
-    //myEventEmitter.emit('event', 'app.get /search', 'INFO', 'search page (search.ejs) was displayed.');
+    myEventEmitter.emit('event', 'app.get /search', 'INFO', 'search page (search.ejs) was displayed.');
     res.render('search', {status: req.session.status, theAnimals});
 });
 
@@ -38,7 +39,7 @@ router.post('/', async (req, res) => {
     
 
     } 
-    //myEventEmitter.emit('event', 'app.post /search', 'INFO', 'search page (search.ejs) was displayed.');
+    myEventEmitter.emit('event', 'app.post /search', 'INFO', 'search page (search.ejs) was displayed.');
 
 
     
