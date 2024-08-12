@@ -53,6 +53,8 @@ app.get('/user', (request, response) => {
     response.render('user.ejs');
 });
 
+
+
 // Error page
 app.use((req, res) => {
     res.status(404).render('404');

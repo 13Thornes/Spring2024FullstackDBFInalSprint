@@ -1,9 +1,13 @@
 <html lang="en">
     <%- include('./partials/head.ejs') %>
     <body>
-    <h1>User Info Page</h1>
+    <h1>User Deletion Page</h1>
     <%- include('./partials/nav.ejs') %>
-    <p>Please select Edit or Delete</p>
+    
+    <form action="/user/delete?_method=DELETE" method="POST">
+        <p>Would you like to delete your account?</p>
+        <button>Delete</button>
+        </form>
     <br>
     <a href="/user/edit">Edit</a>
     <a href="/user/delete">Delete</a>

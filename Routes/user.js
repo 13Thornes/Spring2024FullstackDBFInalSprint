@@ -2,8 +2,17 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const {setToken, authenticateJWT} = require('../Services/auth');
-const { updateUser } = require('../Services/p.auth.dal');
+
+const { updateUser, deleteUser } = require('../Services/p.auth.dal');
+const { deleteKeyword } = require('../Services/pg.keywords.dal');
 const myEventEmitter = require('../Services/logEvents.js');
+
+
+
+
+
+
+
 
 
 router.use(setToken);
@@ -66,6 +75,32 @@ try{
         res.render('503');
         return;
         
+    }
+});
+
+router.get('/delete', async (req, res) => {
+    res.render('delete', {theId: req.session.user.id, status: req.session.status});
+});
+
+router.delete('/delete', async (req, res) => {
+    await deleteKeyword(req.session.user.id)
+    var result = await deleteUser(req.session.user.username);
+    if (result.code === "404") {
+        console.log("Deletion error");
+        res.redirect('/')
+    } else {
+        req.session.status = 'Account deleted.'
+        req.session.destroy((err) => {
+            if (err) {
+                // Handle error case
+                console.error("Session destruction error:", err);
+                return res.status(500).send("Could not log out.");
+            } else {
+                // Redirect to home page or login page after successful logout
+                res.redirect('/');
+                return;
+            }
+        });
     }
 });
 

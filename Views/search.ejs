@@ -5,19 +5,16 @@
         <%- include('./partials/nav.ejs') %>
         <div class="SearchPage">
             <form action="/search" method="POST">
-
             <label><h2>Auto Search:</h2></label>
             <label>Keyword:
                 <input type="text" id="keyword" name="keyword" value="<%= locals.keyword %>" required>
             </label>
-           
             <input type="radio" id="pg" name="database" value="pg">
             <label for="pg">PG</label>
             <input type="radio" id="mongo" name="database" value="mongo">
             <label for="mongo">Mongo</label>
             <input type="radio" id="both" name="database" value="both">
             <label for="mongo">Both</label>
-            
         </br>
         <br>
         <button>Search</button>
@@ -42,16 +39,11 @@
                             <td>&nbsp;&nbsp;<%= animal.age%></td>
                             <% }) %>
                             <br>
-                        
                         </tr>
                 </table>
-            
          </div>
-        
-        
         <br>
-        
-            <% } %>
+        <% } %>
         </form>
         </div>
     </body>
