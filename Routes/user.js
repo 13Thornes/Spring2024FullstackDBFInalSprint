@@ -6,7 +6,7 @@ const router = express.Router();
 const {setToken, authenticateJWT} = require('../Services/auth');
 
 
-const { updateUser } = require('../Services/p.auth.dal')
+const { updateUser, deleteUser } = require('../Services/p.auth.dal')
 
 
 router.use(setToken);
@@ -76,5 +76,18 @@ try{
         
     }
 });
+
+router.delete('/delete', async (req, res) => {
+    var result = await updateUser(req.session.user.username);
+    if (result.code === "404") {
+        console.log("Deletion error");
+    } else {
+        req.session.status = 'Account deleted.'
+        res.redirect('/user/delete');
+        return;
+    }
+});
+
+
 
 module.exports = router
