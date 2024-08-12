@@ -61,6 +61,7 @@ router.get('/new', async (req, res) => {
     return;
 });
 
+
 router.post('/new', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
