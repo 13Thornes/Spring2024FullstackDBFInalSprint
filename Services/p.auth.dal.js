@@ -35,10 +35,10 @@ async function addLogin(name, email, password, uuidv4) {
     }  
   };
 
-  async function deleteUser(username) {
-    let SQL = "DELETE FROM public.\"User\" WHERE \"username\" = $1";
+  async function deleteUser(id) {
+    let SQL = "DELETE FROM public.\"User\" WHERE \"id\" = $1";
     try {
-      let results = await dal.query(SQL, [username]);
+      let results = await dal.query(SQL, [id]);
       return results
     } catch (error) {
       return error
