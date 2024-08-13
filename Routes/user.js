@@ -81,7 +81,7 @@ router.get('/delete', async (req, res) => {
 
 router.delete('/delete', async (req, res) => {
     await deleteKeyword(req.session.user.id)
-    var result = await deleteUser(req.session.user.username);
+    var result = await deleteUser(req.session.user.id);
     if (result.code === "404") {
         console.log("Deletion error");
         res.redirect('/')
