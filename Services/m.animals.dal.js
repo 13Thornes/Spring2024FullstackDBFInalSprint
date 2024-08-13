@@ -1,7 +1,7 @@
 const { ObjectId } = require("mongodb");
 const dal = require("./m.db");
 
-async function geAnimals(keyword) {
+async function getAnimals(keyword) {
   if(DEBUG) console.log("mongo.dal.getFullText()");
   try {
     
@@ -19,5 +19,5 @@ async function geAnimals(keyword) {
 };
 
 module.exports = {
-  geAnimals
+  getAnimals
   }
